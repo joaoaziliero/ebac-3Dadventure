@@ -9,9 +9,9 @@ using Utils.StateMachines.Conventions;
 public class StateManager : MonoBehaviour
 {
     #region CONSTANTS
-    private const string ENTER_STATE_ID = "OnStateEnter";
-    private const string UPDATE_STATE_ID = "OnStateUpdate";
-    private const string EXIT_STATE_ID = "OnStateExit";
+    private const string ENTER_STATE_PROMPT = "OnStateEnter";
+    private const string UPDATE_STATE_PROMPT = "stateUpdateEnabled";
+    private const string EXIT_STATE_PROMPT = "OnStateExit";
     #endregion
 
     #region FRONTEND
@@ -48,12 +48,12 @@ public class StateManager : MonoBehaviour
     {
         if (stateByName.TryGetValue(_currentState, out Type type))
         {
-            FromComponentInvokeMethodOnTarget(type, EXIT_STATE_ID);
+            FromComponentInvokeMethodOnTarget(type, EXIT_STATE_PROMPT);
             SetStateUpdateOnTarget(type, false);
         }
 
         stateByName.TryGetValue(newestState, out Type newestType);
-        FromComponentInvokeMethodOnTarget(newestType, ENTER_STATE_ID);
+        FromComponentInvokeMethodOnTarget(newestType, ENTER_STATE_PROMPT);
         SetStateUpdateOnTarget(newestType, true);
 
         _currentState = newestState;
@@ -67,7 +67,7 @@ public class StateManager : MonoBehaviour
     private void SetStateUpdateOnTarget(Type component, bool update)
     {
         component
-            .GetField(UPDATE_STATE_ID, BindingFlags.NonPublic | BindingFlags.Instance)
+            .GetField(UPDATE_STATE_PROMPT, BindingFlags.NonPublic | BindingFlags.Instance)
             .SetValue(_target.GetComponent(component), update);
     }
     #endregion
