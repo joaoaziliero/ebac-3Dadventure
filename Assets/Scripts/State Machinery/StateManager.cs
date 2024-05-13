@@ -11,7 +11,8 @@ public class StateManager : MonoBehaviour
     [SerializeField] private GameObject _target;
     [SerializeField] private StateGroupings _stateGrouping;
 
-    public Dictionary<StateNames, Type> stateByName;
+    private Dictionary<StateNames, Type> stateByName;
+    private StateNames _currentState;
 
     private void Awake()
     {
@@ -30,21 +31,20 @@ public class StateManager : MonoBehaviour
         }
     }
 
-    //public void ChangeStateTo(StateNames newestState)
-    //{
-    //    var newestType = stateByName[newestState];
+    public void ChangeStateTo(StateNames newestState)
+    {
+        if (stateByName.TryGetValue(_currentState, out Type type))
+        {
+            FromComponentInvokeMethodOnTarget(type, "OnStateExit");
+        }
 
-    //    if (stateByName.TryGetValue(_currentState, out Type type))
-    //    {
-    //        type
-    //            .GetMethod("OnStateExit")
-    //            .Invoke(_target.GetComponent(type), null);
-    //    }
+        FromComponentInvokeMethodOnTarget(stateByName[newestState], "OnStateEnter");
 
-    //    newestType
-    //        .GetMethod("OnStateEnter")
-    //        .Invoke(_target.GetComponent(newestType), null);
+        _currentState = newestState;
+    }
 
-    //    _currentState = newestState;
-    //}
+    private void FromComponentInvokeMethodOnTarget(Type component, string methodName)
+    {
+        component.GetMethod(methodName).Invoke(_target.GetComponent(component), null);
+    }
 }
