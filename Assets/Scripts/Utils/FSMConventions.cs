@@ -8,6 +8,5 @@ namespace Utils.StateMachines.Conventions
     //<#
     public enum StateNames
     {//#>
-
     }
 }
