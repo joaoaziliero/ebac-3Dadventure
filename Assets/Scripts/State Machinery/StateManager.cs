@@ -8,12 +8,23 @@ using Utils.StateMachines.Conventions;
 
 public class StateManager : MonoBehaviour
 {
+    #region CONSTANTS
+    private const string ENTER_STATE_ID = "OnStateEnter";
+    private const string UPDATE_STATE_ID = "OnStateUpdate";
+    private const string EXIT_STATE_ID = "OnStateExit";
+    #endregion
+
+    #region FRONTEND
     [SerializeField] private GameObject _target;
     [SerializeField] private StateGroupings _stateGrouping;
+    #endregion
 
+    #region BACKEND
     private Dictionary<StateNames, Type> stateByName;
     private StateNames _currentState;
+    #endregion
 
+    #region UNITY_METHODS
     private void Awake()
     {
         var statesByGrouping = Assembly
@@ -30,15 +41,20 @@ public class StateManager : MonoBehaviour
             _target.AddComponent(type);
         }
     }
+    #endregion
 
-    public void ChangeStateTo(StateNames newestState)
+    #region OTHER_METHODS
+    public void ChooseState(StateNames newestState)
     {
         if (stateByName.TryGetValue(_currentState, out Type type))
         {
-            FromComponentInvokeMethodOnTarget(type, "OnStateExit");
+            FromComponentInvokeMethodOnTarget(type, EXIT_STATE_ID);
+            SetStateUpdateOnTarget(type, false);
         }
 
-        FromComponentInvokeMethodOnTarget(stateByName[newestState], "OnStateEnter");
+        stateByName.TryGetValue(newestState, out Type newestType);
+        FromComponentInvokeMethodOnTarget(newestType, ENTER_STATE_ID);
+        SetStateUpdateOnTarget(newestType, true);
 
         _currentState = newestState;
     }
@@ -47,4 +63,12 @@ public class StateManager : MonoBehaviour
     {
         component.GetMethod(methodName).Invoke(_target.GetComponent(component), null);
     }
+
+    private void SetStateUpdateOnTarget(Type component, bool update)
+    {
+        component
+            .GetField(UPDATE_STATE_ID, BindingFlags.NonPublic | BindingFlags.Instance)
+            .SetValue(_target.GetComponent(component), update);
+    }
+    #endregion
 }
