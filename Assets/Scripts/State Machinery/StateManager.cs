@@ -49,11 +49,10 @@ public class StateManager : MonoBehaviour
 
         if (_stateByName.TryGetValue(newestState, out Type newestType))
         {
+            _currentState = newestState;
             FromComponentInvokeMethodOnTarget(newestType, ENTER_STATE_PROMPT);
             SetStateUpdateOnTarget(newestType, true);
         }
-
-        _currentState = newestState;
     }
 
     private void FromComponentInvokeMethodOnTarget(Type component, string methodName)
