@@ -43,8 +43,8 @@ public class StateManager : MonoBehaviour
     {
         if (_stateByName.TryGetValue(_currentState, out Type type))
         {
-            FromComponentInvokeMethodOnTarget(type, EXIT_STATE_PROMPT);
             SetStateUpdateOnTarget(type, false);
+            FromComponentInvokeMethodOnTarget(type, EXIT_STATE_PROMPT);
         }
 
         if (_stateByName.TryGetValue(newestState, out Type newestType))
