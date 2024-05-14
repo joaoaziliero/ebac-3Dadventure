@@ -14,61 +14,57 @@ public class StateManager : MonoBehaviour
     private const string EXIT_STATE_PROMPT = "OnStateExit";
     #endregion
 
-    #region FRONTEND
-    public GameObject _target;
-    public StateGroupings _stateGrouping;
-    #endregion
+    public GameObject target;
+    public StateGroupings stateGrouping;
 
-    #region BACKEND
-    private Dictionary<StateNames, Type> stateByName;
+    private Dictionary<StateNames, Type> _stateByName;
     private StateNames _currentState;
-    #endregion
 
-    #region UNITY_METHODS
     private void Awake()
     {
         var statesByGrouping = Assembly
             .GetExecutingAssembly()
             .GetTypesWithAttribute<StateFilterAttribute>()
-            .Where(type => type.GetCustomAttribute<StateFilterAttribute>().Grouping == _stateGrouping);
+            .Where(type => type.GetCustomAttribute<StateFilterAttribute>().Grouping == stateGrouping);
         
-        stateByName = new Dictionary<StateNames, Type>();
+        _stateByName = new Dictionary<StateNames, Type>();
 
         foreach (var type in statesByGrouping)
         {
-            Enum.TryParse(type.Name, out StateNames stateName);
-            stateByName.Add(stateName, type);
-            _target.AddComponent(type);
+            if (Enum.TryParse(type.Name, out StateNames stateName))
+            {
+                _stateByName.Add(stateName, type);
+                target.AddComponent(type);
+            }
         }
     }
-    #endregion
 
-    #region OTHER_METHODS
     public void ChooseState(StateNames newestState)
     {
-        if (stateByName.TryGetValue(_currentState, out Type type))
+        if (_stateByName.TryGetValue(_currentState, out Type type))
         {
             FromComponentInvokeMethodOnTarget(type, EXIT_STATE_PROMPT);
             SetStateUpdateOnTarget(type, false);
         }
 
-        stateByName.TryGetValue(newestState, out Type newestType);
-        FromComponentInvokeMethodOnTarget(newestType, ENTER_STATE_PROMPT);
-        SetStateUpdateOnTarget(newestType, true);
+        if (_stateByName.TryGetValue(newestState, out Type newestType))
+        {
+            FromComponentInvokeMethodOnTarget(newestType, ENTER_STATE_PROMPT);
+            SetStateUpdateOnTarget(newestType, true);
+        }
 
         _currentState = newestState;
     }
 
     private void FromComponentInvokeMethodOnTarget(Type component, string methodName)
     {
-        component.GetMethod(methodName).Invoke(_target.GetComponent(component), null);
+        component.GetMethod(methodName).Invoke(target.GetComponent(component), null);
     }
 
     private void SetStateUpdateOnTarget(Type component, bool update)
     {
         component
             .GetField(UPDATE_STATE_PROMPT)
-            .SetValue(_target.GetComponent(component), update);
+            .SetValue(target.GetComponent(component), update);
     }
-    #endregion
 }
