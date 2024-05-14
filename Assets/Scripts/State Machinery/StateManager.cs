@@ -67,7 +67,7 @@ public class StateManager : MonoBehaviour
     private void SetStateUpdateOnTarget(Type component, bool update)
     {
         component
-            .GetField(UPDATE_STATE_PROMPT, BindingFlags.NonPublic | BindingFlags.Instance)
+            .GetField(UPDATE_STATE_PROMPT)
             .SetValue(_target.GetComponent(component), update);
     }
     #endregion

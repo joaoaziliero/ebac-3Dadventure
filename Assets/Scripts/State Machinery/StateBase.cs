@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class StateBase : MonoBehaviour
 {
-    protected bool stateUpdateEnabled = false;
+    public bool stateUpdateEnabled = false;
 
     public abstract void OnStateEnter();
     public abstract void OnStateUpdate();
