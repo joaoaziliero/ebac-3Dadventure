@@ -15,8 +15,8 @@ public class StateManager : MonoBehaviour
     #endregion
 
     #region FRONTEND
-    [SerializeField] private GameObject _target;
-    [SerializeField] private StateGroupings _stateGrouping;
+    public GameObject _target;
+    public StateGroupings _stateGrouping;
     #endregion
 
     #region BACKEND
