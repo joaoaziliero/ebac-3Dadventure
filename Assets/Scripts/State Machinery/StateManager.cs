@@ -41,17 +41,20 @@ public class StateManager : MonoBehaviour
 
     public void ChooseState(StateNames newestState)
     {
-        if (_stateByName.TryGetValue(_currentState, out Type type))
+        if (_currentState != newestState)
         {
-            SetStateUpdateOnTarget(type, false);
-            FromComponentInvokeMethodOnTarget(type, EXIT_STATE_PROMPT);
-        }
+            if (_stateByName.TryGetValue(_currentState, out Type type))
+            {
+                SetStateUpdateOnTarget(type, false);
+                FromComponentInvokeMethodOnTarget(type, EXIT_STATE_PROMPT);
+            }
 
-        if (_stateByName.TryGetValue(newestState, out Type newestType))
-        {
-            _currentState = newestState;
-            FromComponentInvokeMethodOnTarget(newestType, ENTER_STATE_PROMPT);
-            SetStateUpdateOnTarget(newestType, true);
+            if (_stateByName.TryGetValue(newestState, out Type newestType))
+            {
+                _currentState = newestState;
+                FromComponentInvokeMethodOnTarget(newestType, ENTER_STATE_PROMPT);
+                SetStateUpdateOnTarget(newestType, true);
+            }
         }
     }
 
