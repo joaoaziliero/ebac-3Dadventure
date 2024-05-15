@@ -17,8 +17,8 @@ public class StateManager : MonoBehaviour
     public GameObject target;
     public StateGroupings stateGrouping;
 
-    private Dictionary<StateNames?, Type> _stateByName;
-    private StateNames? _currentState;
+    public Dictionary<StateNames?, Type> StateByName { get; private set; }
+    public StateNames? CurrentState { get; private set; }
 
     private void Awake()
     {
@@ -27,14 +27,14 @@ public class StateManager : MonoBehaviour
             .GetTypesWithAttribute<StateFilterAttribute>()
             .Where(type => type.GetCustomAttribute<StateFilterAttribute>().Grouping == stateGrouping);
         
-        _stateByName = new Dictionary<StateNames?, Type>();
-        _currentState = null;
+        StateByName = new Dictionary<StateNames?, Type>();
+        CurrentState = null;
 
         foreach (var type in statesByGrouping)
         {
             if (Enum.TryParse(type.Name, out StateNames stateName))
             {
-                _stateByName.Add(stateName, type);
+                StateByName.Add(stateName, type);
                 target.AddComponent(type);
             }
         }
@@ -42,17 +42,17 @@ public class StateManager : MonoBehaviour
 
     public void ChooseState(StateNames newestState)
     {
-        if (_currentState != newestState)
+        if (CurrentState != newestState)
         {
-            if (_stateByName.TryGetValue(_currentState, out Type type))
+            if (StateByName.TryGetValue(CurrentState, out Type type))
             {
                 SetStateUpdateOnTarget(type, false);
                 FromComponentInvokeMethodOnTarget(type, EXIT_STATE_PROMPT);
             }
 
-            if (_stateByName.TryGetValue(newestState, out Type newestType))
+            if (StateByName.TryGetValue(newestState, out Type newestType))
             {
-                _currentState = newestState;
+                CurrentState = newestState;
                 FromComponentInvokeMethodOnTarget(newestType, ENTER_STATE_PROMPT);
                 SetStateUpdateOnTarget(newestType, true);
             }
