@@ -17,8 +17,8 @@ public class StateManager : MonoBehaviour
     public GameObject target;
     public StateGroupings stateGrouping;
 
-    private Dictionary<StateNames, Type> _stateByName;
-    private StateNames _currentState;
+    private Dictionary<StateNames?, Type> _stateByName;
+    private StateNames? _currentState;
 
     private void Awake()
     {
@@ -27,7 +27,8 @@ public class StateManager : MonoBehaviour
             .GetTypesWithAttribute<StateFilterAttribute>()
             .Where(type => type.GetCustomAttribute<StateFilterAttribute>().Grouping == stateGrouping);
         
-        _stateByName = new Dictionary<StateNames, Type>();
+        _stateByName = new Dictionary<StateNames?, Type>();
+        _currentState = null;
 
         foreach (var type in statesByGrouping)
         {
