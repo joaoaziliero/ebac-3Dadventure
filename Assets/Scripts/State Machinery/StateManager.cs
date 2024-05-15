@@ -14,8 +14,8 @@ public class StateManager : MonoBehaviour
     private const string EXIT_STATE_PROMPT = "OnStateExit";
     #endregion
 
-    public GameObject target;
-    public StateGroupings stateGrouping;
+    [SerializeField] private GameObject _target;
+    [SerializeField] private StateGroupings _stateGrouping;
 
     public Dictionary<StateNames?, Type> StateByName { get; private set; }
     public StateNames? CurrentState { get; private set; }
@@ -25,7 +25,7 @@ public class StateManager : MonoBehaviour
         var statesByGrouping = Assembly
             .GetExecutingAssembly()
             .GetTypesWithAttribute<StateFilterAttribute>()
-            .Where(type => type.GetCustomAttribute<StateFilterAttribute>().Grouping == stateGrouping);
+            .Where(type => type.GetCustomAttribute<StateFilterAttribute>().Grouping == _stateGrouping);
         
         StateByName = new Dictionary<StateNames?, Type>();
         CurrentState = null;
@@ -35,7 +35,7 @@ public class StateManager : MonoBehaviour
             if (Enum.TryParse(type.Name, out StateNames stateName))
             {
                 StateByName.Add(stateName, type);
-                target.AddComponent(type);
+                _target.AddComponent(type);
             }
         }
     }
@@ -61,13 +61,13 @@ public class StateManager : MonoBehaviour
 
     private void FromComponentInvokeMethodOnTarget(Type component, string methodName)
     {
-        component.GetMethod(methodName).Invoke(target.GetComponent(component), null);
+        component.GetMethod(methodName).Invoke(_target.GetComponent(component), null);
     }
 
     private void SetStateUpdateOnTarget(Type component, bool update)
     {
         component
             .GetField(UPDATE_STATE_PROMPT)
-            .SetValue(target.GetComponent(component), update);
+            .SetValue(_target.GetComponent(component), update);
     }
 }
