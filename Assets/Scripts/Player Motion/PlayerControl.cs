@@ -5,6 +5,8 @@ using Utils.StateMachines.Conventions;
 
 public class PlayerControl : MonoBehaviour
 {
+    [SerializeField] private CharacterController _player;
+
     private PlayerMotionSettings _motionSettings;
     private StateManager _motionManager;
 
@@ -16,6 +18,7 @@ public class PlayerControl : MonoBehaviour
 
     private void Update()
     {
+        ApplyConstantGroundingPull();
         MoveOnCardinalDirections();
         MoveByHeigthChange();
     }
@@ -35,6 +38,7 @@ public class PlayerControl : MonoBehaviour
         {
             _motionSettings.horizontalAxisValue = 0;
             _motionSettings.verticalAxisValue = 0;
+            HelpIdleChecking();
         }
     }
 
@@ -48,6 +52,20 @@ public class PlayerControl : MonoBehaviour
         else
         {
             _motionSettings.jumpKeyPressed = false;
+        }
+    }
+
+    private void ApplyConstantGroundingPull()
+    {
+        var pull = _motionSettings.pullForGrounding * Vector3.down;
+        _player.Move(pull * Time.deltaTime);
+    }
+
+    private void HelpIdleChecking()
+    {
+        if (_player.isGrounded)
+        {
+            _motionManager.ChooseState(StateNames.IdleState);
         }
     }
 }
