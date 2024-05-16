@@ -12,3 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17ce7e6893be32945a768e988112db4d, type: 3}
   m_Name: PlayerMotionSettings
   m_EditorClassIdentifier: 
+  horizontalAxisName: Horizontal
+  horizontalAxisValue: 0
+  verticalAxisName: Vertical
+  verticalAxisValue: 0
+  speed: 5
