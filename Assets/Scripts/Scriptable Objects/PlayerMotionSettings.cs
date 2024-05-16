@@ -11,7 +11,8 @@ public class PlayerMotionSettings : ScriptableObject
     [Range(-1, 1)] public float verticalAxisValue;
     public float speed;
     public KeyCode jumpKeyCode;
-    public bool jumpKeyPressed;
+    [HideInInspector] public bool jumpKeyPressed;
     public float jumpSpeed;
     public float gravity;
+    [Range(0.5f, 1.0f)] public float pullForGrounding;
 }
