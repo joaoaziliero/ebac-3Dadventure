@@ -22,7 +22,11 @@ public class XZMotionState : StateBase
 
     public override void OnStateUpdate()
     {
+        var X_Input = _motionSettings.horizontalAxisValue;
+        var Z_Input = _motionSettings.verticalAxisValue;
 
+        var velocity = _motionSettings.speed * new Vector3(X_Input, 0, Z_Input);
+        _controller.Move(velocity * Time.deltaTime);
     }
 
     public override void OnStateExit()
