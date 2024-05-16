@@ -9,7 +9,7 @@ namespace Utils.StateMachines.Conventions
     public enum StateNames
     {
         None,
-        XZMotionState,
-        YMotionState, //#>
+        RunningState,
+        JumpingState, //#>
     }
 }

@@ -23,12 +23,17 @@ public class PlayerControl : MonoBehaviour
         {
             _motionSettings.horizontalAxisValue = X_Input;
             _motionSettings.verticalAxisValue = Z_Input;
-            _motionManager.ChooseState(StateNames.XZMotionState);
+            _motionManager.ChooseState(StateNames.RunningState);
         }
         else
         {
             _motionSettings.horizontalAxisValue = 0;
             _motionSettings.verticalAxisValue = 0;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            _motionManager.ChooseState(StateNames.JumpingState);
         }
     }
 }
