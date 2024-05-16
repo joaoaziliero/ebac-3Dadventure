@@ -16,6 +16,12 @@ public class PlayerControl : MonoBehaviour
 
     private void Update()
     {
+        MoveOnCardinalDirections();
+        MoveByHeigthChange();
+    }
+
+    private void MoveOnCardinalDirections()
+    {
         var X_Input = Input.GetAxis(_motionSettings.horizontalAxisName);
         var Z_Input = Input.GetAxis(_motionSettings.verticalAxisName);
 
@@ -30,10 +36,18 @@ public class PlayerControl : MonoBehaviour
             _motionSettings.horizontalAxisValue = 0;
             _motionSettings.verticalAxisValue = 0;
         }
+    }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+    private void MoveByHeigthChange()
+    {
+        if (Input.GetKeyDown(_motionSettings.jumpKeyCode))
         {
+            _motionSettings.jumpKeyPressed = true;
             _motionManager.ChooseState(StateNames.JumpingState);
+        }
+        else
+        {
+            _motionSettings.jumpKeyPressed = false;
         }
     }
 }

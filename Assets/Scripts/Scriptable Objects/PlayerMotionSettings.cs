@@ -10,6 +10,8 @@ public class PlayerMotionSettings : ScriptableObject
     public string verticalAxisName;
     [Range(-1, 1)] public float verticalAxisValue;
     public float speed;
+    public KeyCode jumpKeyCode;
+    public bool jumpKeyPressed;
     public float jumpSpeed;
     public float gravity;
 }
