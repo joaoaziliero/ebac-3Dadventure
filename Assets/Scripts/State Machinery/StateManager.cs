@@ -17,8 +17,8 @@ public class StateManager : MonoBehaviour
     [SerializeField] private GameObject _target;
     [SerializeField] private StateGroupings _stateGrouping;
 
-    public Dictionary<StateNames?, Type> StateByName { get; private set; }
-    public StateNames? CurrentState { get; private set; }
+    public Dictionary<StateNames, Type> StateByName { get; private set; }
+    public StateNames CurrentState { get; private set; }
 
     private void Awake()
     {
@@ -27,8 +27,8 @@ public class StateManager : MonoBehaviour
             .GetTypesWithAttribute<StateFilterAttribute>()
             .Where(type => type.GetCustomAttribute<StateFilterAttribute>().Grouping == _stateGrouping);
         
-        StateByName = new Dictionary<StateNames?, Type>();
-        CurrentState = null;
+        StateByName = new Dictionary<StateNames, Type>();
+        CurrentState = StateNames.None;
 
         foreach (var type in statesByGrouping)
         {
@@ -42,7 +42,7 @@ public class StateManager : MonoBehaviour
 
     public void ChooseState(StateNames newestState)
     {
-        if (CurrentState != newestState)
+        if (newestState != CurrentState)
         {
             if (StateByName.TryGetValue(CurrentState, out Type type))
             {
