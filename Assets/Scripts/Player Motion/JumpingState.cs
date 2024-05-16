@@ -32,6 +32,14 @@ public class JumpingState : StateBase
 
     }
 
+    private void JumpCheck()
+    {
+        if (_motionSettings.jumpKeyPressed && _jumpCoroutine == null)
+        {
+            _jumpCoroutine = StartCoroutine(Jump());
+        }
+    }
+
     private IEnumerator Jump()
     {
         float t = 0;
@@ -48,14 +56,6 @@ public class JumpingState : StateBase
             }
 
             yield return new WaitForEndOfFrame();
-        }
-    }
-
-    private void JumpCheck()
-    {
-        if (_motionSettings.jumpKeyPressed && _jumpCoroutine == null)
-        {
-            _jumpCoroutine = StartCoroutine(Jump());
         }
     }
 }
