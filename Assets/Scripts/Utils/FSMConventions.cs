@@ -10,6 +10,7 @@ namespace Utils.StateMachines.Conventions
     {
         None,
         RunningState,
-        JumpingState, //#>
+        JumpingState,
+        IdleState, //#>
     }
 }
