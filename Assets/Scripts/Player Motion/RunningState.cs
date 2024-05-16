@@ -4,7 +4,7 @@ using UnityEngine;
 using Utils.StateMachines.Conventions;
 
 [StateFilter(StateGroupings.PlayerMotion)]
-public class XZMotionState : StateBase
+public class RunningState : StateBase
 {
     private CharacterController _controller;
     private PlayerMotionSettings _motionSettings;
