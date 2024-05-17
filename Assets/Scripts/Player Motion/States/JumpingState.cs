@@ -48,8 +48,8 @@ public class JumpingState : StateBase
         {
             var dt = Time.deltaTime;
             var ds = _motionSettings.jumpSpeed * dt - _motionSettings.gravity * t * dt;
+
             _controller.Move(ds * Vector3.up);
-            t += dt;
 
             if (_controller.isGrounded)
             {
@@ -57,6 +57,7 @@ public class JumpingState : StateBase
                 _jumpCoroutine = null;
             }
 
+            t += dt;
             yield return new WaitForEndOfFrame();
         }
     }
