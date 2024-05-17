@@ -5,13 +5,13 @@ using Utils.StateMachines.Conventions;
 
 public class PlayerControl : MonoBehaviour
 {
-    [SerializeField] private CharacterController _player;
-
+    private CharacterController _player;
     private PlayerMotionSettings _motionSettings;
     private StateManager _motionManager;
 
     private void Start()
     {
+        _player = GetComponentInParent<CharacterController>();
         _motionSettings = Resources.Load<PlayerMotionSettings>("PlayerMotionSettings");
         _motionManager = GetComponent<StateManager>();
     }
