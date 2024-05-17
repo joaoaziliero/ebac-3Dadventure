@@ -57,8 +57,7 @@ public class PlayerControl : MonoBehaviour
 
     private void ApplyConstantGroundingPull()
     {
-        var pull = _motionSettings.pullForGrounding * Vector3.down;
-        _player.Move(pull * Time.deltaTime);
+        _player.Move(_motionSettings.pullForGrounding * Time.deltaTime * Vector3.down);
     }
 
     private void CheckForIdleness()
