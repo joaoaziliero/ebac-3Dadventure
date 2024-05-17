@@ -18,9 +18,10 @@ public class PlayerControl : MonoBehaviour
 
     private void Update()
     {
-        ApplyConstantGroundingPull();
         MoveOnCardinalDirections();
         MoveByHeigthChange();
+        ApplyConstantGroundingPull();
+        CheckForIdleness();
     }
 
     private void MoveOnCardinalDirections()
@@ -38,7 +39,6 @@ public class PlayerControl : MonoBehaviour
         {
             _motionSettings.horizontalAxisValue = 0;
             _motionSettings.verticalAxisValue = 0;
-            HelpIdleChecking();
         }
     }
 
@@ -61,9 +61,9 @@ public class PlayerControl : MonoBehaviour
         _player.Move(pull * Time.deltaTime);
     }
 
-    private void HelpIdleChecking()
+    private void CheckForIdleness()
     {
-        if (_player.isGrounded)
+        if (_motionSettings.horizontalAxisValue == 0 && _motionSettings.verticalAxisValue == 0 && _player.isGrounded)
         {
             _motionManager.ChooseState(StateNames.IdleState);
         }
