@@ -43,11 +43,13 @@ public class JumpingState : StateBase
     private IEnumerator Jump()
     {
         float t = 0;
+
         while (true)
         {
-            var ds = _motionSettings.jumpSpeed * Time.deltaTime - _motionSettings.gravity * t * Time.deltaTime;
+            var dt = Time.deltaTime;
+            var ds = _motionSettings.jumpSpeed * dt - _motionSettings.gravity * t * dt;
             _controller.Move(ds * Vector3.up);
-            t += Time.deltaTime;
+            t += dt;
 
             if (_controller.isGrounded)
             {
