@@ -236,7 +236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1eb0d04ae871bca488524f90d7d74461, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _filePathSpec: Scripts\Utils\FSMConventions.cs
+  _filePathSpec: Scripts\Utils\State Hierarchy\FSMConventions.cs
   _startingPointReferenceLine: //<#
   _endPointReferenceLine: //#>
   newestBlockOpeningLines:
@@ -391,13 +391,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1123462619}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_Father: {fileID: 1671359253}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1123462622
 MonoBehaviour:
@@ -411,7 +411,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb2f597b77e121a47a322a82ab86db6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 1671359250}
 --- !u!1 &1431322625
 GameObject:
   m_ObjectHideFlags: 0
@@ -605,10 +604,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1671359249}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.08869243, y: 1, z: 0.5341673}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1123462621}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
