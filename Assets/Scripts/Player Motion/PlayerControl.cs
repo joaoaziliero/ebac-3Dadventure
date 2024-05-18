@@ -21,23 +21,10 @@ public class PlayerControl : MonoBehaviour
 
     private void Update()
     {
+        MoveByHeigthChange();
         ApplyGravity();
         MoveOnCardinalDirections();
-        MoveByHeigthChange();
         CheckForIdleness();
-    }
-
-    private void ApplyGravity()
-    {
-        if (_motionManager.CurrentState != StateNames.JumpingState && !_player.isGrounded)
-        {
-            _player.Move(_motionSettings.gravity * _gravityPullTimer * Time.deltaTime * Vector3.down);
-            _gravityPullTimer += Time.deltaTime;
-        }
-        else
-        {
-            _gravityPullTimer = 0;
-        }
     }
 
     private void MoveOnCardinalDirections()
@@ -68,6 +55,19 @@ public class PlayerControl : MonoBehaviour
         else
         {
             _motionSettings.jumpKeyPressed = false;
+        }
+    }
+
+    private void ApplyGravity()
+    {
+        if (_motionManager.CurrentState != StateNames.JumpingState && !_player.isGrounded)
+        {
+            _player.Move(_motionSettings.gravity * _gravityPullTimer * Time.deltaTime * Vector3.down);
+            _gravityPullTimer += Time.deltaTime;
+        }
+        else
+        {
+            _gravityPullTimer = 0;
         }
     }
 
