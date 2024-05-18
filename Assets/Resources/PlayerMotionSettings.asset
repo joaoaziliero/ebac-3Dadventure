@@ -13,12 +13,11 @@ MonoBehaviour:
   m_Name: PlayerMotionSettings
   m_EditorClassIdentifier: 
   horizontalAxisName: Horizontal
-  horizontalAxisValue: 0
   verticalAxisName: Vertical
-  verticalAxisValue: 0
   speed: 5
   jumpKeyCode: 32
-  jumpKeyPressed: 0
-  jumpSpeed: 10
+  jumpSpeed: 7.5
   gravity: 9.8
-  pullForGrounding: 0.5
+  horizontalAxisValue: 0
+  verticalAxisValue: 0
+  jumpKeyPressed: 0
