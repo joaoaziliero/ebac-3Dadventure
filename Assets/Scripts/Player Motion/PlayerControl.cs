@@ -9,14 +9,14 @@ public class PlayerControl : MonoBehaviour
     private CharacterController _player;
     private PlayerMotionSettings _motionSettings;
     private StateManager _motionManager;
-    private float _timer;
+    private float _gravityPullTimer;
 
     private void Start()
     {
         _player = GetComponentInParent<CharacterController>();
         _motionSettings = Resources.Load<PlayerMotionSettings>("PlayerMotionSettings");
         _motionManager = GetComponent<StateManager>();
-        _timer = 0;
+        _gravityPullTimer = 0;
     }
 
     private void Update()
@@ -31,12 +31,12 @@ public class PlayerControl : MonoBehaviour
     {
         if (_motionManager.CurrentState != StateNames.JumpingState && !_player.isGrounded)
         {
-            _player.Move(_motionSettings.gravity * _timer * Time.deltaTime * Vector3.down);
-            _timer += Time.deltaTime;
+            _player.Move(_motionSettings.gravity * _gravityPullTimer * Time.deltaTime * Vector3.down);
+            _gravityPullTimer += Time.deltaTime;
         }
         else
         {
-            _timer = 0;
+            _gravityPullTimer = 0;
         }
     }
 
