@@ -9,16 +9,20 @@ public class PlayerControl : MonoBehaviour
     private CharacterController _player;
     private PlayerMotionSettings _motionSettings;
     private StateManager _motionManager;
+    private JumpingState _jumpingState;
     private float _gravityPullTimer;
 
-    [HideInInspector] public JumpingState jumpingState;
-
-    private void Start()
+    private void Awake()
     {
         _player = GetComponentInParent<CharacterController>();
         _motionSettings = Resources.Load<PlayerMotionSettings>("PlayerMotionSettings");
         _motionManager = GetComponent<StateManager>();
         _gravityPullTimer = 0;
+    }
+
+    private void Start()
+    {
+        _jumpingState = GetComponentInParent<JumpingState>();
     }
 
     private void Update()
@@ -62,7 +66,7 @@ public class PlayerControl : MonoBehaviour
 
     private void ApplyGravity()
     {
-        if (_motionManager.CurrentState == StateNames.RunningState && jumpingState.jumpCoroutine == null && !_player.isGrounded)
+        if (_motionManager.CurrentState == StateNames.RunningState && _jumpingState.JumpExecutionRoutine == null && !_player.isGrounded)
         {
             _player.Move(_motionSettings.gravity * _gravityPullTimer * Time.deltaTime * Vector3.down);
             _gravityPullTimer += Time.deltaTime;
