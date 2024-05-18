@@ -6,17 +6,16 @@ using Utils.StateMachines.Conventions;
 [StateFilter(StateGroupings.PlayerMotion)]
 public class JumpingState : StateBase
 {
+    public Coroutine JumpExecutionRoutine { get; private set; }
+    
     private CharacterController _controller;
     private PlayerMotionSettings _motionSettings;
     
-    public Coroutine jumpCoroutine;
-
     private void Awake()
     {
-        GetComponentInChildren<PlayerControl>().jumpingState = this;
+        JumpExecutionRoutine = null;
         _controller = GetComponent<CharacterController>();
         _motionSettings = Resources.Load<PlayerMotionSettings>("PlayerMotionSettings");
-        jumpCoroutine = null;
     }
 
     public override void OnStateEnter()
@@ -36,9 +35,9 @@ public class JumpingState : StateBase
 
     private void JumpCheck()
     {
-        if (_motionSettings.jumpKeyPressed && jumpCoroutine == null)
+        if (_motionSettings.jumpKeyPressed && JumpExecutionRoutine == null)
         {
-            jumpCoroutine = StartCoroutine(Jump());
+            JumpExecutionRoutine = StartCoroutine(Jump());
         }
     }
 
@@ -55,8 +54,8 @@ public class JumpingState : StateBase
 
             if (_controller.isGrounded)
             {
-                StopCoroutine(jumpCoroutine);
-                jumpCoroutine = null;
+                StopCoroutine(JumpExecutionRoutine);
+                JumpExecutionRoutine = null;
             }
 
             t += dt;
