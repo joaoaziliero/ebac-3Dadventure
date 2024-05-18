@@ -11,6 +11,8 @@ public class PlayerControl : MonoBehaviour
     private StateManager _motionManager;
     private float _gravityPullTimer;
 
+    [HideInInspector] public JumpingState jumpingState;
+
     private void Start()
     {
         _player = GetComponentInParent<CharacterController>();
@@ -21,9 +23,9 @@ public class PlayerControl : MonoBehaviour
 
     private void Update()
     {
+        MoveOnCardinalDirections();
         MoveByHeigthChange();
         ApplyGravity();
-        MoveOnCardinalDirections();
         CheckForIdleness();
     }
 
@@ -60,7 +62,7 @@ public class PlayerControl : MonoBehaviour
 
     private void ApplyGravity()
     {
-        if (_motionManager.CurrentState != StateNames.JumpingState && !_player.isGrounded)
+        if (_motionManager.CurrentState == StateNames.RunningState && jumpingState.jumpCoroutine == null && !_player.isGrounded)
         {
             _player.Move(_motionSettings.gravity * _gravityPullTimer * Time.deltaTime * Vector3.down);
             _gravityPullTimer += Time.deltaTime;

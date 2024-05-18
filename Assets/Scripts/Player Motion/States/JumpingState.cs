@@ -8,13 +8,15 @@ public class JumpingState : StateBase
 {
     private CharacterController _controller;
     private PlayerMotionSettings _motionSettings;
-    private Coroutine _jumpCoroutine;
+    
+    public Coroutine jumpCoroutine;
 
     private void Awake()
     {
+        GetComponentInChildren<PlayerControl>().jumpingState = this;
         _controller = GetComponent<CharacterController>();
         _motionSettings = Resources.Load<PlayerMotionSettings>("PlayerMotionSettings");
-        _jumpCoroutine = null;
+        jumpCoroutine = null;
     }
 
     public override void OnStateEnter()
@@ -34,9 +36,9 @@ public class JumpingState : StateBase
 
     private void JumpCheck()
     {
-        if (_motionSettings.jumpKeyPressed && _jumpCoroutine == null)
+        if (_motionSettings.jumpKeyPressed && jumpCoroutine == null)
         {
-            _jumpCoroutine = StartCoroutine(Jump());
+            jumpCoroutine = StartCoroutine(Jump());
         }
     }
 
@@ -53,8 +55,8 @@ public class JumpingState : StateBase
 
             if (_controller.isGrounded)
             {
-                StopCoroutine(_jumpCoroutine);
-                _jumpCoroutine = null;
+                StopCoroutine(jumpCoroutine);
+                jumpCoroutine = null;
             }
 
             t += dt;
