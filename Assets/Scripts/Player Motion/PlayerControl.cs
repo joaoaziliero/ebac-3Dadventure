@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using Utils.StateMachines.Conventions;
 
@@ -8,20 +9,35 @@ public class PlayerControl : MonoBehaviour
     private CharacterController _player;
     private PlayerMotionSettings _motionSettings;
     private StateManager _motionManager;
+    private float _timer;
 
     private void Start()
     {
         _player = GetComponentInParent<CharacterController>();
         _motionSettings = Resources.Load<PlayerMotionSettings>("PlayerMotionSettings");
         _motionManager = GetComponent<StateManager>();
+        _timer = 0;
     }
 
     private void Update()
     {
+        ApplyGravity();
         MoveOnCardinalDirections();
         MoveByHeigthChange();
-        ApplyConstantGroundingPull();
         CheckForIdleness();
+    }
+
+    private void ApplyGravity()
+    {
+        if (_motionManager.CurrentState != StateNames.JumpingState && !_player.isGrounded)
+        {
+            _player.Move(_motionSettings.gravity * _timer * Time.deltaTime * Vector3.down);
+            _timer += Time.deltaTime;
+        }
+        else
+        {
+            _timer = 0;
+        }
     }
 
     private void MoveOnCardinalDirections()
@@ -53,11 +69,6 @@ public class PlayerControl : MonoBehaviour
         {
             _motionSettings.jumpKeyPressed = false;
         }
-    }
-
-    private void ApplyConstantGroundingPull()
-    {
-        _player.Move(_motionSettings.pullForGrounding * Time.deltaTime * Vector3.down);
     }
 
     private void CheckForIdleness()
