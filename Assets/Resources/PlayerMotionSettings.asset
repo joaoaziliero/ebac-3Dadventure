@@ -16,8 +16,8 @@ MonoBehaviour:
   verticalAxisName: Vertical
   speed: 5
   jumpKeyCode: 32
-  jumpSpeed: 7.5
-  gravity: 9.8
+  jumpSpeed: 8
+  gravity: 15
   horizontalAxisValue: 0
   verticalAxisValue: 0
   jumpKeyPressed: 0
