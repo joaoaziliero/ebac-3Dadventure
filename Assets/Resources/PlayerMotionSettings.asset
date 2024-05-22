@@ -18,6 +18,7 @@ MonoBehaviour:
   jumpKeyCode: 32
   jumpSpeed: 8
   gravity: 15
+  gravityOnFallFromJump: 20
   horizontalAxisValue: 0
   verticalAxisValue: 0
   jumpKeyPressed: 0

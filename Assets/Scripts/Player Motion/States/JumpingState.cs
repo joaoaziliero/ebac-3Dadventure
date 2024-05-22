@@ -44,13 +44,20 @@ public class JumpingState : StateBase
     private IEnumerator Jump()
     {
         float t = 0;
+        float pull = _motionSettings.gravity;
 
         while (true)
         {
             var dt = Time.deltaTime;
-            var ds = _motionSettings.jumpSpeed * dt - _motionSettings.gravity * t * dt;
+            var ds = _motionSettings.jumpSpeed * dt - pull * t * dt;
 
             _controller.Move(ds * Vector3.up);
+            t += dt;
+
+            if (t > _motionSettings.jumpSpeed / _motionSettings.gravity)
+            {
+                pull = _motionSettings.gravityOnFallFromJump;
+            }
 
             if (_controller.isGrounded)
             {
@@ -58,7 +65,6 @@ public class JumpingState : StateBase
                 JumpExecutionRoutine = null;
             }
 
-            t += dt;
             yield return new WaitForEndOfFrame();
         }
     }

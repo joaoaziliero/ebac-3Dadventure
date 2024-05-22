@@ -12,6 +12,7 @@ public class PlayerMotionSettings : ScriptableObject
     public KeyCode jumpKeyCode;
     public float jumpSpeed;
     public float gravity;
+    public float gravityOnFallFromJump;
 
     [Header("Input Storage Visualization")]
     [Range(-1, 1)] public float horizontalAxisValue;
