@@ -13,6 +13,7 @@ public class PlayerMotionSettings : ScriptableObject
     public float jumpSpeed;
     public float gravity;
     public float gravityOnFallFromJump;
+    public float turnSpeed;
 
     [Header("Input Storage Visualization")]
     [Range(-1, 1)] public float horizontalAxisValue;
