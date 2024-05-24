@@ -27,19 +27,20 @@ public class PlayerControl : MonoBehaviour
 
     private void Update()
     {
-        MoveOnCardinalDirections();
+        MoveTransformForward();
         MoveByHeigthChange();
         ApplyGravity();
         CheckForIdleness();
     }
 
-    private void MoveOnCardinalDirections()
+    private void MoveTransformForward()
     {
         var X_Input = Input.GetAxis(_motionSettings.horizontalAxisName);
         var Z_Input = Input.GetAxis(_motionSettings.verticalAxisName);
 
         if (X_Input != 0 || Z_Input != 0)
         {
+            _motionSettings.runKeyPressed = Input.GetKey(_motionSettings.runKeyCode);
             _motionSettings.horizontalAxisValue = X_Input;
             _motionSettings.verticalAxisValue = Z_Input;
             _motionManager.ChooseState(StateNames.RunningState);

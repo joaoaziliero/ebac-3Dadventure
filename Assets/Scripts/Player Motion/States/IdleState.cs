@@ -8,7 +8,7 @@ public class IdleState : StateBase
 {
     public override void OnStateEnter()
     {
-        Debug.Log("Player is idle");
+        GetComponentInChildren<Animator>().SetTrigger("IDLE");
     }
 
     public override void OnStateUpdate()

@@ -15,6 +15,10 @@ MonoBehaviour:
   horizontalAxisName: Horizontal
   verticalAxisName: Vertical
   speed: 5
+  walkAnimSpeed: 1
+  runKeyCode: 306
+  runSpeed: 10
+  runAnimSpeed: 2
   jumpKeyCode: 32
   jumpSpeed: 8
   gravity: 15
@@ -22,4 +26,5 @@ MonoBehaviour:
   turnSpeed: 100
   horizontalAxisValue: 0
   verticalAxisValue: 0
+  runKeyPressed: 0
   jumpKeyPressed: 0

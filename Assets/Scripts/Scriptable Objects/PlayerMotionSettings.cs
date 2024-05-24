@@ -9,6 +9,10 @@ public class PlayerMotionSettings : ScriptableObject
     public string horizontalAxisName;
     public string verticalAxisName;
     public float speed;
+    public float walkAnimSpeed;
+    public KeyCode runKeyCode;
+    public float runSpeed;
+    public float runAnimSpeed;
     public KeyCode jumpKeyCode;
     public float jumpSpeed;
     public float gravity;
@@ -18,5 +22,6 @@ public class PlayerMotionSettings : ScriptableObject
     [Header("Input Storage Visualization")]
     [Range(-1, 1)] public float horizontalAxisValue;
     [Range(-1, 1)] public float verticalAxisValue;
+    [HideInInspector] public bool runKeyPressed;
     [HideInInspector] public bool jumpKeyPressed;
 }
