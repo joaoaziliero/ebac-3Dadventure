@@ -1,8 +1,8 @@
+using R3;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using R3;
 using System.Linq;
 
 public class GunBase : MonoBehaviour
@@ -27,6 +27,7 @@ public class GunBase : MonoBehaviour
     public void Shoot(Vector3 initialPosition, Vector3 direction)
     {
         var obj = SelectInactiveProjectile();
+        if (obj == null) return;
         obj.transform.position = initialPosition;
         obj.transform.forward = direction;
 
@@ -46,7 +47,11 @@ public class GunBase : MonoBehaviour
     private GameObject SelectInactiveProjectile()
     {
         int i = 0;
-        while (_projectilePool[i].activeInHierarchy) { i++; }
+        while (_projectilePool[i].activeInHierarchy)
+        {
+            i++;
+            if (i >= _poolSize) return null;
+        }
         return _projectilePool[i];
     }
 }
