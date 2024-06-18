@@ -23,7 +23,7 @@ MonoBehaviour:
   jumpSpeed: 8
   gravity: 15
   gravityOnFallFromJump: 20
-  turnSpeed: 100
+  turnSpeed: 200
   horizontalAxisValue: 0
   verticalAxisValue: 0
   runKeyPressed: 0
