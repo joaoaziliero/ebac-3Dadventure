@@ -7,9 +7,9 @@ using System.Linq;
 
 public class GunBase : MonoBehaviour
 {
-    [SerializeField] private GameObject _projectilePrefab;
+    [SerializeField] protected GameObject _projectilePrefab;
     [SerializeField] private int _poolSize;
-    [SerializeField] private float _timeBetweenShots;
+    [SerializeField] protected float _timeBetweenShots;
 
     private List<GameObject> _projectilePool;
 
