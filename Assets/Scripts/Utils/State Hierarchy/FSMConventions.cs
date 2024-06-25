@@ -3,6 +3,7 @@ namespace Utils.StateMachines.Conventions
     public enum StateGroupings
     {
         PlayerMotion,
+        EnemyCoordination,
     }
 
     //<#
@@ -11,6 +12,9 @@ namespace Utils.StateMachines.Conventions
         None,
         RunningState,
         JumpingState,
-        IdleState, //#>
+        IdleState,
+        EnemyAttackState,
+        EnemyDeathState,
+        EnemyIdleState, //#>
     }
 }
