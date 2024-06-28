@@ -16,6 +16,8 @@ public class EnemyDeathState : StateBase
     public override void OnStateEnter()
     {
         _animator.SetTrigger("DEATH");
+        GetComponent<Collider>().enabled = false;
+        Destroy(gameObject, 1);
     }
 
     public override void OnStateUpdate()
