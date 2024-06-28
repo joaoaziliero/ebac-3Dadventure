@@ -9,6 +9,7 @@ public class Invisibility : MonoBehaviour
     [SerializeField] private float _colorTweeningDuration;
     [SerializeField] private Ease _colorTweeningEase;
     [SerializeField] private float _invisibilityTimePeriod;
+    [SerializeField] private float _minimalTimeBetweenInvisibilityCycles;
 
     private MeshRenderer _meshRenderer;
     private Color _originalColor;
@@ -25,7 +26,7 @@ public class Invisibility : MonoBehaviour
 
     private void Update()
     {
-        if (Random.value <= (_invisibleModeProbability / 100) * Time.deltaTime && _invisibilityRoutine == null)
+        if (Random.value <= (_invisibleModeProbability / 100) && _invisibilityRoutine == null)
         {
             _invisibilityRoutine = StartCoroutine(ActivateTransparencyCycle());
         }
@@ -36,7 +37,7 @@ public class Invisibility : MonoBehaviour
         TweenColoring(Color.clear, Color.clear);
         yield return new WaitForSeconds(_invisibilityTimePeriod - _colorTweeningDuration);
         TweenColoring(_originalColor, _originalEmissionColor);
-        yield return new WaitForSeconds(_colorTweeningDuration);
+        yield return new WaitForSeconds(_colorTweeningDuration + _minimalTimeBetweenInvisibilityCycles);
         _invisibilityRoutine = null;
     }
 
