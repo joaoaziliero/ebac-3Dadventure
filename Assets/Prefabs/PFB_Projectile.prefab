@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4471249994967037249}
   m_Layer: 0
   m_Name: PFB_Projectile
-  m_TagString: Untagged
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -112,3 +112,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectileSpeed: 20
   _timeToDeactivate: 3
+  _tagForEnemies: Enemy
