@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 458ba05a01b3cc84e8a02b126cb908bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _initialLifePoints: 10
+  _initialLifePoints: 20
   _damageByProjectile: 2
   _damageMultiplier: 1
   _tagForProjectiles: Projectile
