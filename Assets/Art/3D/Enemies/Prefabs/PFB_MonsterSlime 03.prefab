@@ -63,7 +63,7 @@ MonoBehaviour:
   _damageByProjectile: 2
   _damageMultiplier: 1
   _tagForProjectiles: Projectile
-  _colorOnDamage: {r: 0, g: 1, b: 0, a: 0}
+  _colorOnDamage: {r: 0.3812499, g: 0, b: 1, a: 0}
   _colorChangeDuration: 0.2
 --- !u!1 &976678563824225944
 GameObject:
