@@ -19,6 +19,7 @@ public class EnemyControl : MonoBehaviour
     private Collider _collider;
     private ReactiveProperty<int> _currentLifePoints;
     private MeshRenderer _meshRenderer;
+    private GameObject _player;
 
     private void Awake()
     {
@@ -27,6 +28,7 @@ public class EnemyControl : MonoBehaviour
         _collider = GetComponentInParent<Collider>();
         _currentLifePoints = new ReactiveProperty<int>(_initialLifePoints);
         _meshRenderer = GetComponentInParent<MeshRenderer>();
+        _player = GameObject.FindGameObjectWithTag("Player");
     }
 
     private void Start()
@@ -47,6 +49,11 @@ public class EnemyControl : MonoBehaviour
         _currentLifePoints
             .Where(value => value <= 0)
             .Subscribe(_ => _stateManager.ChooseState(StateNames.EnemyDeathState))
+            .AddTo(this);
+
+        Observable
+            .EveryUpdate()
+            .Subscribe(_ => { transform.parent.LookAt(_player.transform); transform.parent.Rotate(0, 180, 0); })
             .AddTo(this);
     }
 }
