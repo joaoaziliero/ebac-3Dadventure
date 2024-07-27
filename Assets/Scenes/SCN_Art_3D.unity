@@ -950,6 +950,10 @@ PrefabInstance:
       propertyPath: _colorOnDamage.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6714437638718482626, guid: 8bec79f815163ae43b0faf61a3b8baca, type: 3}
+      propertyPath: _initialLifePoints
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 9035300296402319681, guid: 8bec79f815163ae43b0faf61a3b8baca, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.8
