@@ -1,4 +1,6 @@
 using DG.Tweening;
+using R3;
+using R3.Triggers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,10 +13,22 @@ public class BubbleEmission : MonoBehaviour
 
     private Tween _bubbleScaleTween;
     private Coroutine _delayCoroutine;
+    private Collider _attackTrigger;
+
+    private void Awake()
+    {
+        _attackTrigger = GetComponent<Collider>();
+    }
 
     private void Start()
     {
         _delayCoroutine = StartCoroutine(DelayBubbles());
+
+        _attackTrigger
+            .OnTriggerEnterAsObservable()
+            .Where(collision => collision.CompareTag("Player"))
+            .Subscribe(_ => transform.parent.GetComponent<GunBase>().Shoot(transform.parent.position, transform.parent.forward))
+            .AddTo(this);
     }
 
     private void Update()

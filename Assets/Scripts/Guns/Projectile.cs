@@ -10,6 +10,7 @@ public class Projectile : MonoBehaviour
     public float projectileSpeed;
     [SerializeField] private float _timeToDeactivate;
     [SerializeField] private string _tagForEnemies;
+    [SerializeField] private bool _flipTravelDirection = false;
 
     private void OnEnable()
     {
@@ -26,6 +27,9 @@ public class Projectile : MonoBehaviour
     }
     void Update()
     {
-        transform.Translate(projectileSpeed * Time.deltaTime * transform.forward, Space.World);
+        if (_flipTravelDirection)
+            transform.Translate((-1) * projectileSpeed * Time.deltaTime * transform.forward, Space.World);
+        else
+            transform.Translate((+1) * projectileSpeed * Time.deltaTime * transform.forward, Space.World);
     }
 }
