@@ -9,16 +9,16 @@ using Utils.StateMachines.Conventions;
 
 public class HealthBase : MonoBehaviour
 {
-    [SerializeField] private int _initialLifePoints;
+    [SerializeField] protected Color _colorOnDamage;
+    [SerializeField] protected float _colorChangeDuration;
+    [SerializeField] protected int _initialLifePoints;
     [SerializeField] private int _damageByProjectile;
     [SerializeField] private int _damageMultiplier;
     [SerializeField] private string _tagForProjectiles;
-    [SerializeField] private Color _colorOnDamage;
-    [SerializeField] private float _colorChangeDuration;
 
     private Collider _collider;
-    private ReactiveProperty<int> _currentLifePoints;
-    private MeshRenderer _meshRenderer;
+    
+    protected ReactiveProperty<int> _currentLifePoints;
 
     private void Awake()
     {
@@ -35,7 +35,6 @@ public class HealthBase : MonoBehaviour
         if (_damageMultiplier < 1) _damageMultiplier = 1;
         _collider = GetComponentInParent<BoxCollider>();
         _currentLifePoints = new ReactiveProperty<int>(_initialLifePoints);
-        _meshRenderer = GetComponentInParent<MeshRenderer>();
     }
 
     protected virtual void ManageDamage()
@@ -55,13 +54,9 @@ public class HealthBase : MonoBehaviour
             .AddTo(this);
     }
 
-    protected virtual void RunDamageVisualCue(string ColorType = "_EmissionColor")
+    protected virtual void RunDamageVisualCue()
     {
-        _currentLifePoints
-            .Skip(1)
-            .Where(_ => DOTween.IsTweening(_meshRenderer.material) == false)
-            .Subscribe(_ => _meshRenderer.material.DOColor(_colorOnDamage, ColorType, _colorChangeDuration).SetLoops(2, LoopType.Yoyo))
-            .AddTo(this);
+
     }
 
     protected virtual void CheckForDeath(Action onDeath = null)
