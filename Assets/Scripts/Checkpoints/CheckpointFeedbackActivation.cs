@@ -6,10 +6,12 @@ using UnityEngine;
 public class CheckpointFeedbackActivation : CheckpointBase
 {
     private MeshRenderer _totemRenderer;
+    private Color _bloomColor;
 
     private void Awake()
     {
         _totemRenderer = GetComponent<MeshRenderer>();
+        _bloomColor = _totemRenderer.material.GetColor("_EmissionColor");
     }
 
     private void Start()
@@ -19,7 +21,7 @@ public class CheckpointFeedbackActivation : CheckpointBase
 
     private void LightUpTotem()
     {
-        _totemRenderer.material.SetColor("_EmissionColor", Color.white);
+        _totemRenderer.material.SetColor("_EmissionColor", _bloomColor);
     }
 
     protected override void ConfirmCheckpointUse()
