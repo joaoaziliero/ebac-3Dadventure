@@ -5,11 +5,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Cinemachine;
 
 public class PlayerHealth : HealthBase
 {
+    [Header("Health Bar Setup")]
     [SerializeField] private Image _healthBar;
     [SerializeField] private float _healthBarUnfillDuration;
+
+    [Header("Camera Shake Setup")]
+    [SerializeField] private float _amplitudeGain;
+    [SerializeField] private float _frequencyGain;
+    [SerializeField] private float _shakeDuration;
+
+    private CinemachineBasicMultiChannelPerlin _perlin;
     private Animator _animator;
 
     protected override void Init()
@@ -17,6 +26,7 @@ public class PlayerHealth : HealthBase
         base.Init();
         AddToInit();
         UpdateHealthBar();
+        RunCameraShake();
     }
 
     protected override void RunDamageVisualCue()
@@ -44,6 +54,7 @@ public class PlayerHealth : HealthBase
     private void AddToInit()
     {
         _animator = transform.parent.GetComponentInChildren<Animator>();
+        _perlin = transform.parent.GetComponentInChildren<CinemachineBasicMultiChannelPerlin>();
     }
 
     private void UpdateHealthBar()
@@ -52,5 +63,31 @@ public class PlayerHealth : HealthBase
             .Select(value => value * 1.0f)
             .Subscribe(value => _healthBar.DOFillAmount(value / _initialLifePoints, _healthBarUnfillDuration))
             .AddTo(this);
+    }
+
+    private void RunCameraShake()
+    {
+        _currentLifePoints
+            .Skip(1)
+            .Subscribe(_ => ShakeCamera(_amplitudeGain, _frequencyGain, _shakeDuration))
+            .AddTo(this);
+    }
+
+    private void ShakeCamera(float amplitude, float frequency, float duration)
+    {
+        if (_perlin.m_AmplitudeGain == 0 && _perlin.m_FrequencyGain == 0)
+        {
+            _perlin.m_AmplitudeGain = amplitude;
+            _perlin.m_FrequencyGain = frequency;
+
+            Observable.Timer(TimeSpan.FromSeconds(duration))
+                .Do(onCompleted: _ =>
+                {
+                    _perlin.m_AmplitudeGain = 0;
+                    _perlin.m_FrequencyGain = 0;
+                })
+                .Subscribe()
+                .AddTo(this);
+        }
     }
 }

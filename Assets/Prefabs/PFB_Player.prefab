@@ -52,6 +52,9 @@ MonoBehaviour:
   _tagForProjectiles: Enemy
   _healthBar: {fileID: 4398008788582016107}
   _healthBarUnfillDuration: 0.05
+  _amplitudeGain: 1
+  _frequencyGain: 1
+  _shakeDuration: 0.5
 --- !u!1 &1484477680602184279
 GameObject:
   m_ObjectHideFlags: 0
@@ -140,6 +143,7 @@ GameObject:
   - component: {fileID: 7659942577062199304}
   - component: {fileID: 34543321980671584}
   - component: {fileID: 7090912964079704321}
+  - component: {fileID: 83273895721784452}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -223,6 +227,23 @@ MonoBehaviour:
   m_YawDamping: 0
   m_RollDamping: 0
   m_AngularDamping: 0
+--- !u!114 &83273895721784452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5371339867284166817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NoiseProfile: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+  m_PivotOffset: {x: 0, y: 0, z: 0}
+  m_AmplitudeGain: 0
+  m_FrequencyGain: 0
+  mNoiseOffsets: {x: 916.24097, y: 797.36255, z: -944.3574}
 --- !u!1 &5374620346041782674
 GameObject:
   m_ObjectHideFlags: 0
@@ -247,7 +268,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5374620346041782674}
-  m_LocalRotation: {x: 0.0012572166, y: -0.99028677, z: 0.13874456, w: 0.00897333}
+  m_LocalRotation: {x: 0.001257213, y: -0.99028677, z: 0.13874456, w: 0.008973316}
   m_LocalPosition: {x: 0.31048092, y: 4.897143, z: 17.130764}
   m_LocalScale: {x: 1.9047619, y: 1.9047618, z: 1.904762}
   m_ConstrainProportionsScale: 0
