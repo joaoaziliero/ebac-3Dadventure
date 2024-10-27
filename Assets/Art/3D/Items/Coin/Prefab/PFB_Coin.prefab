@@ -11,9 +11,11 @@ GameObject:
   - component: {fileID: 5057031341477590240}
   - component: {fileID: 5473411873215387760}
   - component: {fileID: 6559595473196272673}
+  - component: {fileID: 5309739425834667682}
+  - component: {fileID: 4064300913200717857}
   m_Layer: 0
   m_Name: PFB_Coin
-  m_TagString: Untagged
+  m_TagString: Coin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -83,3 +85,29 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!135 &5309739425834667682
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7990059070769599707}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.35
+  m_Center: {x: 0, y: -0.000000029802322, z: 0}
+--- !u!114 &4064300913200717857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7990059070769599707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa7a2d634835baa49859dc2f324d4ff8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _deactivationTag: Player
