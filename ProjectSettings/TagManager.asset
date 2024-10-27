@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Projectile
   - Enemy
+  - Coin
+  - Powerup
   layers:
   - Default
   - TransparentFX
