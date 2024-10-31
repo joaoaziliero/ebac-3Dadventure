@@ -10,6 +10,7 @@ public class Projectile : MonoBehaviour
     public float projectileSpeed;
     [SerializeField] private float _timeToDeactivate;
     [SerializeField] private string _tagForEnemies;
+    [SerializeField] private string _tagForChests = "Chest";
     [SerializeField] private bool _flipTravelDirection = false;
 
     private void OnEnable()
@@ -21,7 +22,7 @@ public class Projectile : MonoBehaviour
 
         GetComponent<Collider>()
             .OnTriggerEnterAsObservable()
-            .Where(collision => collision.gameObject.CompareTag(_tagForEnemies))
+            .Where(collision => collision.gameObject.CompareTag(_tagForEnemies) | collision.gameObject.CompareTag(_tagForChests))
             .Subscribe(_ => gameObject.SetActive(false))
             .AddTo(this);
     }
