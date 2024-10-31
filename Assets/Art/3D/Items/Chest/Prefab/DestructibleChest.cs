@@ -31,7 +31,7 @@ public class DestructibleChest : ChestBase
             .OnTriggerEnterAsObservable()
             .Where(collider => collider.gameObject.CompareTag(projectileTag))
             .Select(collision => 1)
-            .Scan(1, (currentSum, collisionCounter) => currentSum + collisionCounter)
+            .Scan(0, (currentSum, collisionCounter) => currentSum + collisionCounter)
             .Where(sum => sum == shotsToDestroy)
             .Subscribe(_ => AwardChestContent())
             .AddTo(this);
@@ -40,6 +40,8 @@ public class DestructibleChest : ChestBase
     public override void AwardChestContent()
     {
         chestContents.ForEach(obj => obj.transform.SetParent(null, true));
+        chestContents.ForEach(obj => obj.GetComponent<BoxCollider>().enabled = true);
+        chestContents.ForEach(obj => obj.GetComponent<Rigidbody>().useGravity = true);
         DeactivateChest();
     }
 
