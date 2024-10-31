@@ -33,6 +33,7 @@ public class InventoryManager : MonoBehaviour
     {
         _playerCollider
             .OnTriggerEnterAsObservable()
+            .Distinct()
             .Select(collider => inventory.Where(item => collider.gameObject.CompareTag(item.tag)).ToList())
             .Subscribe(collectedItems => collectedItems.ForEach(i => i.userInterface.text = UpdatedCount(i.userInterface, 1)))
             .AddTo(this);
