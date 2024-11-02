@@ -18,6 +18,7 @@ MonoBehaviour:
   walkAnimSpeed: 1
   runKeyCode: 306
   runSpeed: 10
+  runSpeedMultiplier: 2.5
   runAnimSpeed: 2
   jumpKeyCode: 32
   jumpSpeed: 8

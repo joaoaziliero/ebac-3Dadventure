@@ -12,6 +12,7 @@ public class PlayerMotionSettings : ScriptableObject
     public float walkAnimSpeed;
     public KeyCode runKeyCode;
     public float runSpeed;
+    public float runSpeedMultiplier;
     public float runAnimSpeed;
     public KeyCode jumpKeyCode;
     public float jumpSpeed;
