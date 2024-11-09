@@ -10,6 +10,7 @@ public class AccessibleChest : ChestBase
 {
     public GameObject chestLid;
     public GameObject prefabToSpawn;
+    public GameObject particleSys;
     public int prefabCopies;
     public float lidRotationAngle = -90;
     public float lidRotationPeriod;
@@ -60,6 +61,7 @@ public class AccessibleChest : ChestBase
 
     public override void AwardChestContent()
     {
+        particleSys.SetActive(true);
         RotateLid(_angleOfRest + lidRotationAngle, lidRotationPeriod);
         Observable.Timer(TimeSpan.FromSeconds(1)).Do(onCompleted: _ => SpawnChestContent()).Subscribe();
     }
