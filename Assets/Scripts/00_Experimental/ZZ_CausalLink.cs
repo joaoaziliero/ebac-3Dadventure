@@ -11,7 +11,13 @@ public class ZZ_CausalLink : MonoBehaviour
         Observable.EveryValueChanged(transform, transf => transf.rotation.eulerAngles.x)
             .Where(value => value >= 315.0)
             .Take(1)
-            .Subscribe(value => Debug.Log($"Rotation detected at eulerX == {value}"))
+            .Do(onNext: value => Debug.Log($"Rotation detected at eulerX == {value}"))
+            //.Do()
+            //.Do()
+            //.Do()
+            //...
+            .Subscribe()
             .AddTo(this);
+
     }
 }
