@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Utils.StateMachines.Conventions;
 
+[DisallowMultipleComponent]
 [StateFilter(StateGroupings.PlayerMotion)]
 public class RunningState : StateBase
 {
