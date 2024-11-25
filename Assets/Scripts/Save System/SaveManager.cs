@@ -15,14 +15,14 @@ public class SaveManager : MonoBehaviour
         OnAwakeLoad();
     }
 
-    public void Save()
+    public void Save(int checkpoint)
     {
         PlayerSaveData playerSave = new()
         {
             coins = GetComponentsInChildren<TextMeshProUGUI>()[0].text,
-            berries = GetComponentsInChildren<TextMeshProUGUI>()[1].text,
             health = GetComponentInChildren<PlayerHealth>().currentLifePoints.Value,
             skinIndex = GetComponentInChildren<ClothingManager>().SkinIndex,
+            latestCheckpoint = checkpoint,
             X_Position = transform.position.x,
             Y_Position = transform.position.y,
             Z_Position = transform.position.z,
@@ -33,24 +33,37 @@ public class SaveManager : MonoBehaviour
 
     public void OnAwakeLoad()
     {
-        if (File.Exists(saveFile) == false) return;
+        var data = RetrieveData();
 
-        var data = JsonUtility.FromJson<PlayerSaveData>(File.ReadAllText(saveFile));
+        if (data != null)
+        {
+            if (data.loadedAlready == 1) return;
 
-        if (data.loadedAlready == 1) return;
+            GetComponentsInChildren<TextMeshProUGUI>()[0].text = data.coins;
+            GetComponentInChildren<PlayerHealth>().currentLifePoints = new R3.ReactiveProperty<int>(data.health);
+            GetComponentInChildren<ClothingManager>().SelectSkin(GetComponentInChildren<ClothingManager>().clothes[data.skinIndex]);
+            transform.position = new Vector3(data.X_Position, data.Y_Position, data.Z_Position);
 
-        GetComponentsInChildren<TextMeshProUGUI>()[0].text = data.coins;
-        GetComponentsInChildren<TextMeshProUGUI>()[1].text = data.berries;
-        GetComponentInChildren<PlayerHealth>().currentLifePoints = new R3.ReactiveProperty<int>(data.health);
-        GetComponentInChildren<ClothingManager>().SelectSkin(GetComponentInChildren<ClothingManager>().clothes[data.skinIndex]);
-        transform.position = new Vector3(data.X_Position, data.Y_Position, data.Z_Position);
+            data.loadedAlready = 1;
+            File.WriteAllText(saveFile, JsonUtility.ToJson(data, true));
+        }
+    }
 
-        data.loadedAlready = 1;
-        File.WriteAllText(saveFile, JsonUtility.ToJson(data, true));
+    private PlayerSaveData RetrieveData()
+    {
+        if (File.Exists(saveFile) == false) return null;
+
+        return JsonUtility.FromJson<PlayerSaveData>(File.ReadAllText(saveFile));
     }
 
     private void OnApplicationQuit()
     {
-        Save();
+        var data = RetrieveData();
+
+        if (data != null)
+        {
+            data.loadedAlready = 0;
+            File.WriteAllText(saveFile, JsonUtility.ToJson(data, true));
+        }
     }
 }

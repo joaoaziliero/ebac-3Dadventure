@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class ItemFunctions : MonoBehaviour
 {
+    public GameObject playerPrefab;
+
     public void Empty() { }
 
     public void BeReborn()
     {
-        Instantiate(transform.parent.gameObject);
+        Instantiate(playerPrefab).transform.position = transform.parent.position;
         Destroy(transform.parent.gameObject);
     }
 }

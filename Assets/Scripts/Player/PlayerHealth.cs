@@ -27,8 +27,6 @@ public class PlayerHealth : HealthBase
         AddToInit();
         UpdateHealthBar();
         RunCameraShake();
-
-        Debug.Log(currentLifePoints.Value);
     }
 
     protected override void RunDamageVisualCue()

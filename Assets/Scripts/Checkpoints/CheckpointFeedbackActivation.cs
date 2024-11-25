@@ -12,10 +12,6 @@ public class CheckpointFeedbackActivation : CheckpointBase
     {
         _totemRenderer = GetComponent<MeshRenderer>();
         _bloomColor = _totemRenderer.material.GetColor("_EmissionColor");
-    }
-
-    private void Start()
-    {
         _totemRenderer.material.SetColor("_EmissionColor", Color.black);
     }
 

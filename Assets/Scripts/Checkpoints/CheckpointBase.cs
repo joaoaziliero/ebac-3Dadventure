@@ -1,28 +1,44 @@
+using System.IO;
 using UnityEngine;
 
 public class CheckpointBase : MonoBehaviour
 {
-    private bool _usedCheckpoint = false;
+    public int checkpointNumber;
+    public string saveFile = "PlayerData.json";
+
+    private void Start()
+    {
+        var lastSaveComparision = CompareLatestSave(Path.Combine(Application.persistentDataPath, saveFile));
+        GetComponent<Collider>().enabled = !lastSaveComparision;
+        if (lastSaveComparision == true) ConfirmCheckpointUse();
+    }
 
     protected void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player") && _usedCheckpoint == false)
+        if (other.gameObject.CompareTag("Player"))
         {
-            SavePlayerPosition();
+            SaveGame(other.gameObject.GetComponent<SaveManager>());
             ConfirmCheckpointUse();
         }
     }
 
-    private void SavePlayerPosition()
+    private bool CompareLatestSave(string path)
     {
-        PlayerPrefs.SetFloat("lastSavedPosition_X", transform.position.x);
-        PlayerPrefs.SetFloat("lastSavedPosition_Y", transform.position.y);
-        PlayerPrefs.SetFloat("lastSavedPosition_Z", transform.position.z);
+        if (File.Exists(path) == false)
+        {
+            return false;
+        }
+        else
+        {
+            var latestCheckpoint = JsonUtility.FromJson<PlayerSaveData>(File.ReadAllText(path)).latestCheckpoint;
+            return checkpointNumber <= latestCheckpoint;
+        }
     }
 
-    protected virtual void ConfirmCheckpointUse()
+    private void SaveGame(SaveManager saveManager)
     {
-        PlayerPrefs.SetInt("isCheckpointAvailable", 1);
-        _usedCheckpoint = true;
+        saveManager.Save(checkpointNumber);
     }
+
+    protected virtual void ConfirmCheckpointUse() { }
 }
