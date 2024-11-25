@@ -16,25 +16,20 @@ public class HealthBase : MonoBehaviour
     [SerializeField] private int _damageMultiplier;
     [SerializeField] private string _tagForProjectiles;
 
+    public ReactiveProperty<int> currentLifePoints = null;
     private Collider _collider;
-    
-    protected ReactiveProperty<int> _currentLifePoints;
-
-    private void Awake()
-    {
-        Init();
-    }
 
     private void Start()
     {
+        Init();
         ManageDamage();
     }
 
     protected virtual void Init()
     {
         if (_damageMultiplier < 1) _damageMultiplier = 1;
+        currentLifePoints ??= new ReactiveProperty<int>(_initialLifePoints);
         _collider = GetComponentInParent<BoxCollider>();
-        _currentLifePoints = new ReactiveProperty<int>(_initialLifePoints);
     }
 
     protected virtual void ManageDamage()
@@ -50,7 +45,7 @@ public class HealthBase : MonoBehaviour
             .OnTriggerEnterAsObservable()
             .Where(collision => collision.gameObject.CompareTag(_tagForProjectiles))
             .Select(collision => _damageByProjectile * _damageMultiplier)
-            .Subscribe(damage => _currentLifePoints.Value -= damage)
+            .Subscribe(damage => currentLifePoints.Value -= damage)
             .AddTo(this);
     }
 
@@ -61,7 +56,7 @@ public class HealthBase : MonoBehaviour
 
     protected virtual void CheckForDeath(Action onDeath = null)
     {
-        _currentLifePoints
+        currentLifePoints
             .Where(value => value <= 0)
             .Subscribe(_ => onDeath?.Invoke())
             .AddTo(this);

@@ -25,7 +25,7 @@ public class InventoryManager : MonoBehaviour
     
     private void Awake()
     {
-        _functions = transform.AddComponent<ItemFunctions>();
+        _functions = GetComponent<ItemFunctions>();
         _playerCollider = GetComponentInParent<Collider>();
     }
 

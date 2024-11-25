@@ -20,7 +20,7 @@ public class EnemyControl : HealthBase
 
     protected override void RunDamageVisualCue()
     {
-        _currentLifePoints
+        currentLifePoints
             .Skip(1)
             .Where(_ => DOTween.IsTweening(_meshRenderer.material) == false)
             .Subscribe(_ => _meshRenderer.material.DOColor(_colorOnDamage, "_EmissionColor", _colorChangeDuration).SetLoops(2, LoopType.Yoyo))

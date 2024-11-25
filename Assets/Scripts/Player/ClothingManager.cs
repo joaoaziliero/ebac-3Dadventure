@@ -3,19 +3,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ClothingManager : MonoBehaviour
 {
-    [Serializable]
-    public class Clothing
-    {
-        public Material material;
-        public KeyCode key = KeyCode.None;
-        public string associatedFunction = "Normalize";
-    }
-
+    public int SkinIndex { get; private set; }
     public List<Clothing> clothes;
     public List<SkinnedMeshRenderer> body;
 
@@ -23,21 +15,32 @@ public class ClothingManager : MonoBehaviour
 
     private void Awake()
     {
-        _functions = transform.AddComponent<ClothingFunctions>();
+        _functions = GetComponent<ClothingFunctions>();
     }
 
     private void Start()
     {
-        var clothingActivationStream = Observable
+        Observable
             .EveryUpdate()
             .Select(_ => clothes
             .Where(clothingItem => Input.GetKeyDown(clothingItem.key)).ToList())
             .Where(activatedClothing => activatedClothing.Count > 0)
-            .Subscribe(activatedClothing =>
-            {
-                body.ForEach(part => part.material = activatedClothing[0].material);
-                _functions.Invoke(activatedClothing[0].associatedFunction, 0);
-            })
+            .Subscribe(activatedClothing => SelectSkin(activatedClothing[0]))
             .AddTo(this);
+    }
+
+    public void SelectSkin(Clothing skin)
+    {
+        body.ForEach(part => part.material = skin.material);
+        if (_functions != null) _functions.Invoke(skin.associatedFunction, 0);
+        SkinIndex = clothes.IndexOf(skin);
+    }
+
+    [Serializable]
+    public class Clothing
+    {
+        public Material material;
+        public KeyCode key = KeyCode.None;
+        public string associatedFunction = "Normalize";
     }
 }

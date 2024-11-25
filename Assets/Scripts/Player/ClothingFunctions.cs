@@ -6,16 +6,14 @@ using UnityEngine;
 
 public class ClothingFunctions : MonoBehaviour
 {
-    public PlayerMotionSettings motionSettings;
-    
-    private float _originalRunningSpeed;
-    private Vector3 _originalPlayerScale;
+    [SerializeField] private float _originalRunningSpeed;
+    [SerializeField] private Vector3 _originalPlayerScale;
+
+    private PlayerMotionSettings _motionSettings;
 
     private void Awake()
     {
-        motionSettings = Resources.Load<PlayerMotionSettings>("PlayerMotionSettings");
-        _originalRunningSpeed = motionSettings.runSpeed;
-        _originalPlayerScale = transform.parent.localScale;
+        _motionSettings = Resources.Load<PlayerMotionSettings>("PlayerMotionSettings");
     }
 
     public void Normalize()
@@ -27,7 +25,7 @@ public class ClothingFunctions : MonoBehaviour
     public void RunFaster()
     {
         NormalizeScale();
-        motionSettings.runSpeed *= motionSettings.runSpeedMultiplier;
+        _motionSettings.runSpeed *= _motionSettings.runSpeedMultiplier;
     }
 
     public void Enlarge()
@@ -38,7 +36,7 @@ public class ClothingFunctions : MonoBehaviour
 
     private void NormalizeSpeed()
     {
-        motionSettings.runSpeed = _originalRunningSpeed;
+        _motionSettings.runSpeed = _originalRunningSpeed;
     }
 
     private void NormalizeScale()

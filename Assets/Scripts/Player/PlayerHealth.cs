@@ -27,11 +27,13 @@ public class PlayerHealth : HealthBase
         AddToInit();
         UpdateHealthBar();
         RunCameraShake();
+
+        Debug.Log(currentLifePoints.Value);
     }
 
     protected override void RunDamageVisualCue()
     {
-        _currentLifePoints
+        currentLifePoints
             .Skip(1)
             .Where(_ => DOTween.IsTweening("Health") == false)
             .Subscribe(_ => _healthBar.DOColor(_colorOnDamage, _colorChangeDuration).SetLoops(2, LoopType.Yoyo).SetId("Health"))
@@ -59,7 +61,7 @@ public class PlayerHealth : HealthBase
 
     private void UpdateHealthBar()
     {
-        _currentLifePoints
+        currentLifePoints
             .Select(value => value * 1.0f)
             .Subscribe(value => _healthBar.DOFillAmount(value / _initialLifePoints, _healthBarUnfillDuration))
             .AddTo(this);
@@ -67,7 +69,7 @@ public class PlayerHealth : HealthBase
 
     private void RunCameraShake()
     {
-        _currentLifePoints
+        currentLifePoints
             .Skip(1)
             .Subscribe(_ => ShakeCamera(_amplitudeGain, _frequencyGain, _shakeDuration))
             .AddTo(this);
