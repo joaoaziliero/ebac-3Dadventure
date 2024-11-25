@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7486262439294144789}
   - component: {fileID: 7683015700919609456}
+  - component: {fileID: 3263186845743987145}
   m_Layer: 0
   m_Name: Clothes
   m_TagString: Untagged
@@ -64,6 +65,20 @@ MonoBehaviour:
   - {fileID: 4506205366237423677}
   - {fileID: 1818320648984413957}
   - {fileID: 7250725122632803877}
+--- !u!114 &3263186845743987145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 749203910524174457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a78379910deb1bd4cae09b20af20842d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _originalRunningSpeed: 10
+  _originalPlayerScale: {x: 0.525, y: 0.525, z: 0.525}
 --- !u!1 &840033871927990585
 GameObject:
   m_ObjectHideFlags: 0
@@ -714,6 +729,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7886544127447672552}
   - component: {fileID: 4967139564717575144}
+  - component: {fileID: 5673810670638070416}
   m_Layer: 0
   m_Name: Inventory
   m_TagString: Untagged
@@ -757,6 +773,18 @@ MonoBehaviour:
     associatedFunction: BeReborn
     key: 114
     userInterface: {fileID: 8461134801382001241}
+--- !u!114 &5673810670638070416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5619815634842463661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b5b9eabace472b4b9e116dbe979c829, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6411236580077094983
 GameObject:
   m_ObjectHideFlags: 0
@@ -1005,6 +1033,7 @@ GameObject:
   - component: {fileID: 2088089455}
   - component: {fileID: 2088089459}
   - component: {fileID: 2088089463}
+  - component: {fileID: 8434215795592941135}
   m_Layer: 0
   m_Name: PFB_Player
   m_TagString: Player
@@ -1165,6 +1194,19 @@ MonoBehaviour:
     correspondingGun: {fileID: 2088089455}
   - selectionKey: 50
     correspondingGun: {fileID: 2088089459}
+--- !u!114 &8434215795592941135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7066802525778935472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1f0030dbe9dd0d45af239e60be9bbdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  saveFile: PlayerData.json
 --- !u!1 &8564875701263445114
 GameObject:
   m_ObjectHideFlags: 0
