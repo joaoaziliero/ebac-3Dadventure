@@ -34,7 +34,7 @@ public class ButtonFunctions : MonoBehaviour
 
     public void LoadScene(int sceneIndex)
     {
-        Observable.Timer(TimeSpan.FromSeconds(2)).Subscribe(_ => SceneManager.LoadScene(sceneIndex)).AddTo(this);
+        SceneManager.LoadScene(sceneIndex);
     }
 
     public void QuitGame()
