@@ -20,6 +20,7 @@ public class SaveManager : MonoBehaviour
         PlayerSaveData playerSave = new()
         {
             coins = GetComponentsInChildren<TextMeshProUGUI>()[0].text,
+            berries = GetComponentsInChildren<TextMeshProUGUI>()[1].text,
             health = GetComponentInChildren<PlayerHealth>().currentLifePoints.Value,
             skinIndex = GetComponentInChildren<ClothingManager>().SkinIndex,
             latestCheckpoint = checkpoint,
@@ -40,6 +41,7 @@ public class SaveManager : MonoBehaviour
             if (data.loadedAlready == 1) return;
 
             GetComponentsInChildren<TextMeshProUGUI>()[0].text = data.coins;
+            GetComponentsInChildren<TextMeshProUGUI>()[1].text = data.berries;
             GetComponentInChildren<PlayerHealth>().currentLifePoints = new R3.ReactiveProperty<int>(data.health);
             GetComponentInChildren<ClothingManager>().SelectSkin(GetComponentInChildren<ClothingManager>().clothes[data.skinIndex]);
             transform.position = new Vector3(data.X_Position, data.Y_Position, data.Z_Position);

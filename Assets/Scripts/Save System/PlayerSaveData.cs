@@ -4,6 +4,7 @@ using System;
 public class PlayerSaveData
 {
     public string coins;
+    public string berries;
     public int health;
     public int skinIndex;
     public int latestCheckpoint;
