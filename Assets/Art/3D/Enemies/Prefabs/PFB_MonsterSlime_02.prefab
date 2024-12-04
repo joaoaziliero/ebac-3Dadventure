@@ -1174,7 +1174,7 @@ GameObject:
   - component: {fileID: 5441372263117071147}
   - component: {fileID: 1857480695219587882}
   m_Layer: 0
-  m_Name: PFB_MonsterSlime 02
+  m_Name: PFB_MonsterSlime_02
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1477,12 +1477,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 458ba05a01b3cc84e8a02b126cb908bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _colorOnDamage: {r: 0.3812499, g: 0, b: 1, a: 0}
+  _colorChangeDuration: 0.2
   _initialLifePoints: 30
   _damageByProjectile: 2
   _damageMultiplier: 1
   _tagForProjectiles: Projectile
-  _colorOnDamage: {r: 0.3812499, g: 0, b: 1, a: 0}
-  _colorChangeDuration: 0.2
 --- !u!1 &9003076787208532304
 GameObject:
   m_ObjectHideFlags: 0

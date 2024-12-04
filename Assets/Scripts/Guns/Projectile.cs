@@ -42,6 +42,8 @@ public class Projectile : MonoBehaviour
             .Where(collision => collision.gameObject.CompareTag(_tagForEnemies) | collision.gameObject.CompareTag(_tagForChests))
             .Subscribe(_ => gameObject.SetActive(false))
             .AddTo(this);
+
+        GetComponent<AudioSource>().Play();
     }
 
     void Update()
