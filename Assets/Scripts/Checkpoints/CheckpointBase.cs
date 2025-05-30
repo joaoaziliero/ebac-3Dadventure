@@ -8,9 +8,9 @@ public class CheckpointBase : MonoBehaviour
 
     private void Start()
     {
-        var lastSaveComparision = CompareLatestSave(Path.Combine(Application.persistentDataPath, saveFile));
-        GetComponent<Collider>().enabled = !lastSaveComparision;
-        if (lastSaveComparision == true) ConfirmCheckpointUse();
+        //var lastSaveComparision = CompareLatestSave(Path.Combine(Application.persistentDataPath, saveFile));
+        //GetComponent<Collider>().enabled = !lastSaveComparision;
+        //if (lastSaveComparision == true) ConfirmCheckpointUse();
     }
 
     protected void OnTriggerEnter(Collider other)
@@ -37,7 +37,7 @@ public class CheckpointBase : MonoBehaviour
 
     private void SaveGame(SaveManager saveManager)
     {
-        saveManager.Save(checkpointNumber);
+        //saveManager.Save(checkpointNumber);
     }
 
     protected virtual void ConfirmCheckpointUse() { }

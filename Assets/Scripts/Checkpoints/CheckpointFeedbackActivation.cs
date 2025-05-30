@@ -29,7 +29,7 @@ public class CheckpointFeedbackActivation : CheckpointBase
 
     protected override void ConfirmCheckpointUse()
     {
-        base.ConfirmCheckpointUse();
+        //base.ConfirmCheckpointUse();
         LightUpTotem();
         PlaySound();
     }
